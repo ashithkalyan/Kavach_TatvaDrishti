@@ -1,0 +1,41 @@
+# KAVACH Backend — self-hosted brain architecture
+# No paid LLM API is required for any core feature.
+
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+python-dotenv==1.0.1
+python-multipart==0.0.9
+pydantic==2.7.4
+bcrypt==4.2.0             # real password hashing — see backend/auth.py
+
+# KAVACH Brain — deterministic NLU, all local computation
+networkx==3.6.1          # classical graph algorithms (path-finding, centrality, community detection)
+requests==2.32.3         # only used for the OPTIONAL local Ollama bridge (localhost, never external)
+
+# Document ingestion (PDF + OCR)
+pdfplumber==0.11.4
+pytesseract==0.3.13
+Pillow==10.4.0
+# Tesseract OCR itself is a system package, not pip-installable:
+#   Ubuntu/Debian:  sudo apt install tesseract-ocr
+#   macOS:          brew install tesseract
+
+# Seed data generation
+faker==25.2.0
+
+# Chat-history PDF export (KAVACH -> Word-free, dependency-light PDF
+# generation with embedded Kannada font support — see services/pdf_export.py)
+reportlab==4.2.5
+
+# ── OPTIONAL — only needed if you choose to enable local Ollama polishing ──
+# Nothing to pip install: Ollama runs as its own local server.
+# See backend/brain/ollama_client.py for setup instructions.
+
+# ── OPTIONAL — legacy Gemini path, disabled by default ──
+# google-generativeai==0.7.2
+
+# ── OPTIONAL — only needed when deploying to Zoho Catalyst AppSail with
+# CATALYST_CACHE_ENABLED=true (see services/catalyst_adapter.py). Not
+# needed for local dev or for any non-Catalyst deployment — every call
+# into it is wrapped in try/except with a safe SQLite-only fallback.
+# zcatalyst-sdk==1.0.0rc5

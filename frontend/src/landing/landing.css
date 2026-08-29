@@ -1,0 +1,35 @@
+/* Scoped to the landing experience only — imported solely by
+   LandingExperience.jsx, so nothing here affects the working application. */
+
+.landing-root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Subtle film grain — a quiet cinematic texture, not a gritty overlay */
+.landing-root .film-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.022;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: landing-grain-shift 0.7s steps(4) infinite;
+}
+
+@keyframes landing-grain-shift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-4%, 3%); }
+  50%  { transform: translate(3%, -3%); }
+  75%  { transform: translate(-3%, -2%); }
+  100% { transform: translate(3%, 2%); }
+}
+
+/* Gentle vignette to keep focus centred on the photography */
+.landing-root .vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 46%, rgba(5, 16, 31, 0.55) 100%);
+}

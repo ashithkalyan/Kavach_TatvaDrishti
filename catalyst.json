@@ -1,0 +1,10 @@
+{
+  "client": {
+    "source": "frontend/dist",
+    "config": {
+      "hosting-config": {
+        "single_page_app": true
+      }
+    }
+  }
+}

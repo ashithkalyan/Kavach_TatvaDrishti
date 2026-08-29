@@ -1,0 +1,11 @@
+{
+  "command": "python main.py",
+  "buildPath": "backend",
+  "stack": "python3",
+  "memory": 512,
+  "env_variables": {
+    "DB_PATH": "kavach.db",
+    "DEMO_MODE": "false",
+    "CATALYST_CACHE_ENABLED": "true"
+  }
+}

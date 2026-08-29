@@ -1,0 +1,35 @@
+version: 1
+pipeline-when:
+  equal:
+    - << event.ref >>
+    - refs/heads/main
+
+runners:
+  build:
+    config-id: 2
+
+jobs:
+  deploy-backend:
+    steps:
+      - npm install -g zcatalyst-cli
+      - cd backend
+      - catalyst appsail:deploy --token << env.CATALYST_TOKEN >>
+
+  build-and-deploy-frontend:
+    when:
+      equal:
+        - << status.deploy.deploy-backend >>
+        - success
+    steps:
+      - cd frontend
+      - npm install
+      - npm run build
+      - cd ..
+      - catalyst deploy --project << env.PROJECT_ID >> --org << env.CATALYST_ORG >> --token << env.CATALYST_TOKEN >>
+
+stages:
+  - name: deploy
+    runner: build
+    jobs:
+      - deploy-backend
+      - build-and-deploy-frontend
